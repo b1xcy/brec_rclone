@@ -28,8 +28,8 @@ services:
     volumes:
       - ./${DATA}:/${DATA}:shared
     ports:
-      - "2356:2356"
-    entrypoint: dotnet /app/BililiveRecorder.Cli.dll run --bind "http://*:2356" --http-basic-user "${username}" --http-basic-pass "${password}" "/${DATA}"
+      - "${PORT}:${PORT}"
+    entrypoint: dotnet /app/BililiveRecorder.Cli.dll run --bind "http://${HOST}:${PORT}" --http-basic-user "${username}" --http-basic-pass "${password}" "/${DATA}"
     depends_on:
       rclone:
         condition: service_healthy
