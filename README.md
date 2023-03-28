@@ -1,6 +1,14 @@
 # brec_rclone
 融合了一下bililive录播姬和rclone，现在准备弄两种部署方法，一种是docker-compose，另一种是我自己做的docker
 
+## 前期准备
+
+事先本地部署一次rclone，获得rclone.conf文件
+
+因为rclone的挂载有时需要浏览器验证，而服务器上无法做到
+
+具体的rclone.conf文件可以输入`rclone config file`查看
+
 ## docker-compose（不是很推荐）
 
 因为这个的rclone挂载我没弄很明白，在加了healthcheck之后才保证了挂载成功之后在启动brec
@@ -16,8 +24,6 @@
 查看.env文件，填写Network_Disk_Name，username，password三个字段
 
 在rclone文件中放入rclone的配置文件rclone.conf
-
-具体的位置可以在本地配置好rclone后，在命令行中输入`rclone config file`查看
 
 ### 运行
 
