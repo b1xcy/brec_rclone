@@ -70,3 +70,10 @@ docker run --rm \
 ```
 
 即可
+
+## 感谢
+
+- [Rclone](https://rclone.org/):一个极其好用的同步工具
+
+- [BililiveRecorder/BililiveRecorder: B站录播姬](https://github.com/BililiveRecorder/BililiveRecorder):一直在使用的录播工具
+
