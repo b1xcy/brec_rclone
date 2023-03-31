@@ -28,3 +28,45 @@
 ### 运行
 
 在当前文件夹下运行`docker-compose up`直接启动
+
+## docker
+
+这次我自己用dockerfile直接构建了一个基于ubuntu的镜像，较好地完成了我的需求
+
+如需拉取镜像：
+
+```
+docker pull b1xcy/brec_rclone:v1.1
+```
+
+具体的挂载命令如下
+
+```
+docker run --rm \
+    --volume <你rclone配置文件的位置>:/root/.config/rclone/ \
+    --user $(id -u):$(id -g) \
+    --volume /etc/passwd:/etc/passwd:ro --volume /etc/group:/etc/group:ro \
+    --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined \
+    -p <映射的端口号>:2356 \
+    brec_rclone:v1.1 <rclone中设置的网盘名> <挂载位置> run --bind "http://*:2356" --http-basic-user <录播机登录名> --http-basic-pass <录播机登陆密码> <挂载位置>
+```
+
+给出例子：
+
+```
+docker run --rm \
+    --volume /home/b1xcy/rclone:/root/.config/rclone/ \
+    --user $(id -u):$(id -g) \
+    --volume /etc/passwd:/etc/passwd:ro --volume /etc/group:/etc/group:ro \
+    --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined \
+    -p 2356:2356 \
+    brec_rclone:v1.1 b1xcy:/ /rec run --bind "http://*:2356" --http-basic-user "username" --http-basic-pass "password" /rec
+```
+
+如有需要在外部访问容器内的录播文件，可以多挂载一个卷，仅需加一条
+
+```
+--volume /rec:/rec
+```
+
+即可
