@@ -9,7 +9,7 @@
 
 具体的rclone.conf文件可以输入`rclone config file`查看
 
-## docker-compose（不是很推荐）
+## docker-compose
 
 因为这个的rclone挂载我没弄很明白，在加了healthcheck之后才保证了挂载成功之后在启动brec
 
@@ -27,7 +27,7 @@
 
 ### 运行
 
-在当前文件夹下运行`docker-compose up`直接启动
+在当前文件夹下运行`docker-compose up -d`直接启动
 
 ## docker
 
