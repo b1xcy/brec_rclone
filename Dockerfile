@@ -1,10 +1,11 @@
-FROM rclone/rclone AS rclone
+FROM rclone/rclone 
 
-FROM ubuntu
-
-COPY --from=rclone /usr/local/bin/ /usr/local/bin/
-RUN apt-get update && apt-get install -y ca-certificates fuse3 tzdata unzip \
-    && echo "user_allow_other" >> /etc/fuse.conf
+RUN apk add ca-certificates \
+	fuse3 \
+	tzdata \
+	unzip \
+	aspnetcore6-runtime \
+    bash
     
 WORKDIR '/app/brec'
 COPY brec.zip /app/brec
