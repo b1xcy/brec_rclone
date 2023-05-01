@@ -9,7 +9,9 @@
 
 具体的rclone.conf文件可以输入`rclone config file`查看
 
-## docker-compose
+## docker-compose（推荐）
+
+其实主要的推荐原因是采用的录播机和rclone都可以保持最新
 
 因为这个的rclone挂载我没弄很明白，在加了healthcheck之后才保证了挂载成功之后在启动brec
 
@@ -36,14 +38,14 @@
 如需拉取镜像：
 
 ```
-docker pull b1xcy/brec_rclone:v1.1
+docker pull b1xcy/brec_rclone:v1.2
 ```
 
 具体的挂载命令如下
 
 ```
 docker run --rm \
-    --volume <你rclone配置文件的位置>:/root/.config/rclone/ \
+    --volume <你rclone配置文件的位置>:/config/rclone/ \
     --user $(id -u):$(id -g) \
     --volume /etc/passwd:/etc/passwd:ro --volume /etc/group:/etc/group:ro \
     --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined \
@@ -54,13 +56,7 @@ docker run --rm \
 给出例子：
 
 ```
-docker run --rm \
-    --volume /home/b1xcy/rclone:/root/.config/rclone/ \
-    --user $(id -u):$(id -g) \
-    --volume /etc/passwd:/etc/passwd:ro --volume /etc/group:/etc/group:ro \
-    --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined \
-    -p 2356:2356 \
-    brec_rclone:v1.1 b1xcy:/ /rec run --bind "http://*:2356" --http-basic-user "username" --http-basic-pass "password" /rec
+docker run --rm --volume /home/b1xcy/rclone:/config/rclone/ --user $(id -u):$(id -g) --volume /etc/passwd:/etc/passwd:ro --volume /etc/group:/etc/group:ro --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined -p 2356:2356 b1xcy/brec_rclone:v1.2 b1xcy:/ /rec run --bind "http://*:2356" --http-basic-user "username" --http-basic-pass "password" /rec
 ```
 
 如有需要在外部访问容器内的录播文件，可以多挂载一个卷，仅需加一条
