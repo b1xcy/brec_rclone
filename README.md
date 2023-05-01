@@ -31,7 +31,7 @@
 
 ## docker
 
-这次我自己用dockerfile直接构建了一个基于ubuntu的镜像，较好地完成了我的需求
+这次我自己用dockerfile构建了一个基于rclone的镜像
 
 如需拉取镜像：
 
